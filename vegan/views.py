@@ -3,9 +3,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework import status
+from rest_framework.authtoken.models import Token
 
 # Create your views here.
 from .models import Vegan, Comment
+from django.contrib import auth
+from django.contrib.auth.models import User
 from .serializers import CommentCreateSerializer, VeganSimpleSerializer, VeganDetailSerializer, CommentSerializer, VeganCreateSerializer
 
 # 전체 식당목록 조회 / 등록
@@ -51,3 +54,22 @@ class CommentDetailAPIView(APIView):
         comments = get_object_or_404(Comment, id=post_id)
         serializer = CommentSerializer(comments)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+# 회원가입
+class SignupAPIView(APIView):
+    def post(self, request):
+        user = User.objects.create_user(username=request.data['id'], password=request.data['password'])
+        user.save()
+        token = Token.objects.create(user=user)
+        return Response({"Token": token.key})
+
+# 로그인
+class LoginAPIView(APIView):
+    def post(self, request):
+        user = auth.authenticate(username=request.data['id'], password=request.data['password'])
+        if user is not None:
+            token = Token.objects.get(user=user)
+            return Response({"Token": token.key})
+        else:
+            return Response(status=401)

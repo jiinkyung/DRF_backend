@@ -1,5 +1,7 @@
+from dataclasses import fields
 from rest_framework import serializers
 from .models import Vegan, Comment
+from django.contrib.auth.models import User
 
 class VeganSimpleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +27,13 @@ class CommentCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
+
+class SignupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
+
+class SigninSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'password')
