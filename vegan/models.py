@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
@@ -8,6 +9,7 @@ class Vegan(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(blank=True, null=True, upload_to="post_image")
 
     def __str__(self):
         return self.title

@@ -6,17 +6,17 @@ from django.contrib.auth.models import User
 class VeganSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('id', 'title', 'author', 'description')
+        fields = ('id', 'title', 'author', 'image', 'description')
 
 class VeganDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('id', 'title', 'author', 'description', 'created')
+        fields = '__all__'
 
 class VeganCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('title','author', 'description')
+        fields = ('title','author', 'image', 'description')
 
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
