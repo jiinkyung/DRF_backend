@@ -10,6 +10,7 @@ class Vegan(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE) # 글 작성자
     description = models.TextField(blank=True) # 글 내용
     created = models.DateTimeField(auto_now_add=True) # 작성 날짜
+    image = models.ImageField(blank=True, null=True, upload_to="post_image") # 이미지
 
     def __str__(self):
         return self.title
@@ -21,12 +22,12 @@ class Vegan(models.Model):
 class VeganSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('id', 'title', 'author', 'description')
+        fields = ('id', 'title', 'author', 'image', 'description')
 # 게시물 등록
 class VeganCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('title','author', 'description')
+        fields = ('title','author', 'image', 'description')
 # 게시물 세부 조회
 class VeganDetailSerializer(serializers.ModelSerializer):
     class Meta:
