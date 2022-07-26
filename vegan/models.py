@@ -9,7 +9,7 @@ class Vegan(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.TextField(blank=True)
     created = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(blank=True, null=True, upload_to="post_image")
+    image = models.ImageField(default='post_image/default.jpg', upload_to="post_image")
 
     def __str__(self):
         return self.title

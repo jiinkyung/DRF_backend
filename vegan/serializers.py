@@ -3,10 +3,12 @@ from rest_framework import serializers
 from .models import Vegan, Comment
 from django.contrib.auth.models import User
 
+
+
 class VeganSimpleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vegan
-        fields = ('id', 'title', 'author', 'image', 'description')
+        fields = '__all__'
 
 class VeganDetailSerializer(serializers.ModelSerializer):
     class Meta:
